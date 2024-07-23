@@ -1,0 +1,183 @@
+7. <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration with Validation</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            color: #555;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff7e5f;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #feb47b;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>User Registration</h1>
+        <form id="registrationForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <div class="error" id="usernameError">Please enter a username.</div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError">Please enter a valid email address.</div>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <div class="error" id="passwordError">Please enter a password.</div>
+
+            <label for="gender">Gender:</label>
+            <input type="radio" id="male" name="gender" value="male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label>
+            <div class="error" id="genderError">Please select your gender.</div>
+
+            <label for="hobbies">Hobbies:</label>
+            <input type="checkbox" id="hobby1" name="hobbies" value="reading">
+            <label for="hobby1">Reading</label>
+            <input type="checkbox" id="hobby2" name="hobbies" value="traveling">
+            <label for="hobby2">Traveling</label>
+            <input type="checkbox" id="hobby3" name="hobbies" value="sports">
+            <label for="hobby3">Sports</label>
+
+            <label for="country">Country:</label>
+            <select id="country" name="country" required>
+                <option value="">Select your country</option>
+                <option value="usa">United States</option>
+                <option value="canada">Canada</option>
+                <option value="uk">United Kingdom</option>
+                <option value="australia">Australia</option>
+            </select>
+            <div class="error" id="countryError">Please select your country.</div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            var isValid = true;
+
+            // Username validation
+            var username = document.getElementById('username');
+            var usernameError = document.getElementById('usernameError');
+            if (username.value.trim() === '') {
+                isValid = false;
+                usernameError.style.display = 'block';
+            } else {
+                usernameError.style.display = 'none';
+            }
+
+            // Email validation
+            var email = document.getElementById('email');
+            var emailError = document.getElementById('emailError');
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value.trim())) {
+                isValid = false;
+                emailError.style.display = 'block';
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            // Password validation
+            var password = document.getElementById('password');
+            var passwordError = document.getElementById('passwordError');
+            if (password.value.trim() === '') {
+                isValid = false;
+                passwordError.style.display = 'block';
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            // Gender validation
+            var genderError = document.getElementById('genderError');
+            var genderSelected = document.querySelector('input[name="gender"]:checked');
+            if (!genderSelected) {
+                isValid = false;
+                genderError.style.display = 'block';
+            } else {
+                genderError.style.display = 'none';
+            }
+
+            // Country validation
+            var country = document.getElementById('country');
+            var countryError = document.getElementById('countryError');
+            if (country.value.trim() === '') {
+                isValid = false;
+                countryError.style.display = 'block';
+            } else {
+                countryError.style.display = 'none';
+            }
+
+            // Prevent form submission if any validation fails
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
